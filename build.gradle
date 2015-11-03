@@ -40,7 +40,7 @@ war {
 task deploy(dependsOn: 'war', type:Exec) {
   workingDir "${glassfishHome}${File.separator}bin"
  
-  if (System.properties['os.name'].toLowerCase().contains('osx')) {
+  if (!System.properties['os.name'].toLowerCase().contains('osx')) {
     commandLine 'cmd', '/c', 'asadmin.bat'
   } else {
     commandLine "./asadmin"
