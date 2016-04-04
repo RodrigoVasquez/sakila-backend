@@ -26,24 +26,3 @@ war {
     //sclasspath configurations.moreLibs // adds a configuration to the WEB-INF/lib dir.
     webXml = file('src/main/webapp/WEB-INF/web.xml') // copies a file to WEB-INF/web.xml
 }
-
-/**
-*  ~/.gradle/gradle.properties:
-*  glassfishHome=/path/to/glassfish_home
-*
-*  or in Netbeans, right click project, Properties, Manage Build in Tasks, Run
-*  Add line to Arguments: -Dorg.gradle.project.glassfishHome=/path/to/glassfish_home
-*
-*  For more information about Exec tasks see
-*  http://www.gradle.org/docs/current/dsl/org.gradle.api.tasks.Exec.html
-*/
-task deploy(dependsOn: 'war', type:Exec) {
-  workingDir "${glassfishHome}${File.separator}bin"
- 
-  if (!System.properties['os.name'].toLowerCase().contains('osx')) {
-    commandLine 'cmd', '/c', 'asadmin.bat'
-  } else {
-    commandLine "./asadmin"
-  }
-  args "deploy", "--force=true", "${war.archivePath}"
-}
